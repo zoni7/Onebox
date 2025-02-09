@@ -1,19 +1,21 @@
 package com.onebox.oneboxProject.model;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class Cart {
-    private final String id;
+    private UUID id;
     private LocalDateTime lastActivity;
-    private final List<Product> products;
+    private List<Product> products;
 
-    public Cart(String id) {
-        this.id = id;
+    public Cart() {
+        this.id = UUID.randomUUID();
         this.lastActivity = LocalDateTime.now();
         this.products = new ArrayList<>();
     }

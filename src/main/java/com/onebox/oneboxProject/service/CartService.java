@@ -3,12 +3,15 @@ package com.onebox.oneboxProject.service;
 import com.onebox.oneboxProject.model.Cart;
 import com.onebox.oneboxProject.model.Product;
 import com.onebox.oneboxProject.repository.CartRepository;
+import io.micrometer.observation.ObservationFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CartService {
+
     private final CartRepository cartRepository;
 
     // Constructor para inyectar la capa de repositorio
@@ -16,43 +19,28 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    // Crear una nueva cart
-    public Cart createCart(Cart cart) {
+    public Cart createCart() {
+        Cart cart = new Cart();
         cartRepository.save(cart);
         return cart;
     }
 
-    // Obtener una cart por ID
-    public Optional<Cart> getCartById(String cartId) {
-        return cartRepository.findById(cartId);
-    }
-
     // Añadir un producto a una cart
-    public void addProductToCart(String cartId, Product product) {
+    public Cart addProductToCart(UUID cartId, Product product) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
         if (optionalCart.isPresent()) {
             Cart cart = optionalCart.get();
             cart.addProduct(product);
-            cartRepository.save(cart); // Guardar los cambios
+            cart = cartRepository.save(cart); // Guardar los cambios
+            return cart;
         } else {
             throw new RuntimeException("Cart no encontrada con el ID: " + cartId);
         }
     }
 
-    // Eliminar un producto de la cart
-    public void removeProductFromCart(String cartId, Product product) {
-        Optional<Cart> optionalCart = cartRepository.findById(cartId);
-        if (optionalCart.isPresent()) {
-            Cart cart = optionalCart.get();
-            cart.removeProduct(product);
-            cartRepository.save(cart); // Guardar los cambios
-        } else {
-            throw new RuntimeException("Cart no encontrada con el ID: " + cartId);
-        }
-    }
 
     // Eliminar una cart
-    public void deleteCart(String cartId) {
+    public void deleteCart(UUID cartId) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
         if (optionalCart.isPresent()) {
             cartRepository.delete(cartId);
@@ -61,7 +49,7 @@ public class CartService {
         }
     }
 
-    public Cart getCart(String cartId) {
+    public Cart getCartById(UUID cartId) {
         return cartRepository.findById(cartId).orElse(null);
     }
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <!-- Importar Materialize -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h4 class="center">🛒 Gestión de Carritos</h4>
+
+        <!-- Botón para crear carrito -->
+        <button id="createCartBtn" class="btn blue waves-effect waves-light">
+            <i class="material-icons left">add_shopping_cart</i> Crear Carrito
+        </button>
+
+        <!-- Lista de carritos -->
+        <ul id="cartList" class="collection">
+            <li class="collection-item">Carritos creados aparecerán aquí...</li>
+        </ul>
+
+        <!-- Buscar carrito -->
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">🔍 Buscar Carrito</span>
+                <div class="input-field">
+                    <input type="text" id="cartIdInput" placeholder="Ingrese ID del carrito">
+                </div>
+                <button id="getCartBtn" class="btn green waves-effect waves-light">
+                    <i class="material-icons left">search</i> Buscar
+                </button>
+            </div>
+        </div>
+
+        <!-- Agregar Producto -->
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">📦 Agregar Producto</span>
+                <div class="input-field">
+                    <input type="text" id="productIdInput" placeholder="ID del producto">
+                </div>
+                <div class="input-field">
+                    <input type="text" id="productDescInput" placeholder="Descripción">
+                </div>
+                <div class="input-field">
+                    <input type="number" id="productAmountInput" placeholder="Cantidad">
+                </div>
+                <button id="addProductBtn" class="btn amber darken-2 waves-effect waves-light">
+                    <i class="material-icons left">add_circle</i> Agregar Producto
+                </button>
+            </div>
+        </div>
+
+        <!-- Eliminar Carrito -->
+        <button id="deleteCartBtn" class="btn red darken-2 waves-effect waves-light">
+            <i class="material-icons left">delete</i> Eliminar Carrito
+        </button>
+    </div>
+
+    <!-- Importar Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -2,14 +2,16 @@ package com.onebox.oneboxProject.model;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class Product {
-    private final String id;
+    private final UUID id;
     private String description;
     private double amount;
 
-    public Product(String id, String description, double amount) {
-        this.id = id;
+    public Product( String description, double amount) {
+        this.id = UUID.randomUUID();
         this.description = description;
         this.amount = amount;
     }
