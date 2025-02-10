@@ -5,7 +5,6 @@ const cartList = document.getElementById("cartList");
 const createCartBtn = document.getElementById("createCartBtn");
 const cartIdInput = document.getElementById("cartIdInput");
 const getCartBtn = document.getElementById("getCartBtn");
-const productIdInput = document.getElementById("productIdInput");
 const productDescInput = document.getElementById("productDescInput");
 const productAmountInput = document.getElementById("productAmountInput");
 const addProductBtn = document.getElementById("addProductBtn");
@@ -50,16 +49,14 @@ async function getCart() {
 // Función para agregar un producto a un carrito
 async function addProductToCart() {
     const cartId = cartIdInput.value;
-    const productId = productIdInput.value;
     const description = productDescInput.value;
     const amount = productAmountInput.value;
 
-    if (!cartId || !productId || !description || !amount) {
+    if (!cartId || !description || !amount) {
         return alert("Por favor, completa todos los campos");
     }
 
     const product = {
-        id: parseInt(productId),
         description,
         amount: parseInt(amount),
     };
