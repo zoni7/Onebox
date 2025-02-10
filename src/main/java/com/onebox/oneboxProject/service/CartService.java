@@ -4,8 +4,10 @@ import com.onebox.oneboxProject.model.Cart;
 import com.onebox.oneboxProject.model.Product;
 import com.onebox.oneboxProject.repository.CartRepository;
 import io.micrometer.observation.ObservationFilter;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,7 +16,7 @@ public class CartService {
 
     private final CartRepository cartRepository;
 
-    // Constructor para inyectar la capa de repositorio
+
     public CartService(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
     }
@@ -25,27 +27,25 @@ public class CartService {
         return cart;
     }
 
-    // Añadir un producto a una cart
     public Cart addProductToCart(UUID cartId, Product product) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
         if (optionalCart.isPresent()) {
             Cart cart = optionalCart.get();
             cart.addProduct(product);
-            cart = cartRepository.save(cart); // Guardar los cambios
+            cart = cartRepository.save(cart);
             return cart;
         } else {
-            throw new RuntimeException("Cart no encontrada con el ID: " + cartId);
+            throw new RuntimeException("Carrito no encontrado con el ID: " + cartId);
         }
     }
 
 
-    // Eliminar una cart
     public void deleteCart(UUID cartId) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
         if (optionalCart.isPresent()) {
             cartRepository.delete(cartId);
         } else {
-            throw new IllegalStateException("Cart no encontrada con el ID: " + cartId);
+            throw new IllegalStateException("Carrito no encontrado con el ID: " + cartId);
         }
     }
 
@@ -53,4 +53,14 @@ public class CartService {
         return cartRepository.findById(cartId).orElse(null);
     }
 
+    @Scheduled(fixedRate = 600000)
+    public void removeInactiveCarts() {
+        Instant expirationTime = Instant.now().minusSeconds(600);
+        cartRepository.findAll().forEach((id, cart) -> {
+            if (cart.getLastUpdated().isBefore(expirationTime)) {
+                cartRepository.delete(cart.getId());
+                System.out.println("Carrito eliminado por inactividad: " + cart.getId());
+            }
+        });
+    }
 }
