@@ -1,4 +1,4 @@
-package com.onebox.oneboxProject;
+package com.onebox.oneboxProject.controller;
 
 import com.onebox.oneboxProject.model.Cart;
 import com.onebox.oneboxProject.model.Product;
@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/carts")
+@CrossOrigin("*")
 public class CartController {
 
 
