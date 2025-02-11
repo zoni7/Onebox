@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public class CartRepositoryImpl implements CartRepository {
-    // Simulación de una base de datos en memoria
+    // Mock a data base
     private final Map<UUID, Cart> databaseMock = new HashMap<>();
 
     public Cart save(Cart cart) {
