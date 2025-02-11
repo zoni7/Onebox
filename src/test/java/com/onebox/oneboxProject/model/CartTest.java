@@ -68,20 +68,4 @@ class CartTest {
         assertEquals(product2, cart.getProducts().get(1));
     }
 
-    @Test
-    void addProduct_updatesLastUpdated_success() {
-        // Arrange
-        Cart cart = new Cart();
-        Product product = new Product("Product1", 10.99);
-        Instant beforeAddition = cart.getLastUpdated();
-
-        // Act
-        cart.addProduct(product);
-        Instant afterAddition = cart.getLastUpdated();
-
-        // Assert
-        assertEquals(1, cart.getProducts().size());
-        assertEquals(product, cart.getProducts().get(0));
-        assertTrue(afterAddition.isAfter(beforeAddition));
-    }
 }

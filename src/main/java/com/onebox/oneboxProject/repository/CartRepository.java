@@ -1,35 +1,20 @@
 package com.onebox.oneboxProject.repository;
 
 import com.onebox.oneboxProject.model.Cart;
-import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
-public class CartRepository {
-    // Simulación de una base de datos en memoria
-    private final Map<UUID, Cart> databaseMock = new HashMap<>();
+public interface CartRepository {
 
-    public Cart save(Cart cart) {
-        return databaseMock.put(cart.getId(), cart);
-    }
+    Cart save(Cart cart);
 
-    public Optional<Cart> findById(UUID cartId) {
-        return Optional.ofNullable(databaseMock.get(cartId));
-    }
+    Optional<Cart> findById(UUID cartId);
 
-    public Map<UUID, Cart> findAll() {
-        return databaseMock;
-    }
+    Map<UUID, Cart> findAll();
 
-    public void delete(UUID cartId) {
-        databaseMock.remove(cartId);
-    }
+    void delete(UUID cartId);
 
-    public boolean existsById(UUID cartId) {
-        return databaseMock.containsKey(cartId);
-    }
+    boolean existsById(UUID cartId);
 }

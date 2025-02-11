@@ -2,14 +2,12 @@ package com.onebox.oneboxProject.controller;
 
 import com.onebox.oneboxProject.model.Cart;
 import com.onebox.oneboxProject.model.Product;
-import com.onebox.oneboxProject.service.CartService;
+import com.onebox.oneboxProject.service.CartServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -25,7 +23,7 @@ class CartControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private CartService cartService;
+    private CartServiceImpl cartService;
 
     @InjectMocks
     private CartController cartController;

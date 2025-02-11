@@ -3,7 +3,6 @@ package com.onebox.oneboxProject.controller;
 import com.onebox.oneboxProject.model.Cart;
 import com.onebox.oneboxProject.model.Product;
 import com.onebox.oneboxProject.service.CartService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,11 @@ import java.util.UUID;
 @CrossOrigin("*")
 public class CartController {
 
+    private final CartService cartService;
 
-    @Autowired
-    private CartService cartService;
-
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
+    }
 
     @PostMapping("/new")
     public ResponseEntity<Cart> createCart() {
